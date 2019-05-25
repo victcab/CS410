@@ -2,20 +2,45 @@
 import cv2
 import numpy as np
 
+def main():
+    print("main function")
+    sourceImg = cv2.imread('testing.jpg')
+    paint(sourceImg, [28, 20, 12, 4])
 
-sourceImg = cv2.imread('testing.jpg')
-height, width, channels = sourceImg.shape;
-cv2.imshow("sourceImage",sourceImg)
 
-blurImg = cv2.blur(sourceImg, (5, 5))
-cv2.imshow('blurred image', blurImg)
+def paint(sourceImg, radii):
 
-blankCanvas = np.zeros((height,width,3), np.uint8)
-blankCanvas[:] = (245, 245, 220)
-cv2.imshow("blankCanvas",blankCanvas)
+    i = 0
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    height, width, channels = sourceImg.shape;
+    cv2.namedWindow("sourceImage");
+    cv2.moveWindow("sourceImage", 40, 30)  # Move it to (40,30)
+    cv2.imshow("sourceImage",sourceImg)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    blankCanvas = np.zeros((height,width,3), np.uint8)
+    blankCanvas[:] = (245, 245, 220)
+    cv2.namedWindow("blankCanvas");
+    cv2.moveWindow("blankCanvas", 40, 30)  # Move it to (40,30)
+    cv2.imshow("blankCanvas",blankCanvas)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+    while i < len(radii):
+        print(radii[i])
+        blurImg = cv2.blur(sourceImg, (radii[i], radii[i]))
+        cv2.namedWindow("blurred image");
+        cv2.moveWindow("blurred image", 40, 30)  # Move it to (40,30)
+        cv2.imshow('blurred image', blurImg)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        i += 1
+
+
+
+ #   cv2.destroyAllWindows()
 
 
 
@@ -53,5 +78,6 @@ cv2.destroyAllWindows()
 #     #     pass
 #
 # #
-# # if __name__ == "__main__":
-# #     main()
+
+if __name__ == "__main__":
+    main()
