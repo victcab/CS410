@@ -1,22 +1,28 @@
-# from PIL import Image
-# from PIL import ImageFilter
+# importing opencv CV2 module
 import cv2
 import numpy as np
 
-img = cv2.imread("testing.jpg")
-height, width, channels = img.shape;
-#img = cv2.GaussianBlur(img,(10,10),cv2.BORDER_DEFAULT)
-cv2.imshow("sourceImage",img)
+
+sourceImg = cv2.imread('testing.jpg')
+height, width, channels = sourceImg.shape;
+cv2.imshow("sourceImage",sourceImg)
+
+blurImg = cv2.blur(sourceImg, (5, 5))
+cv2.imshow('blurred image', blurImg)
 
 blankCanvas = np.zeros((height,width,3), np.uint8)
 blankCanvas[:] = (245, 245, 220)
 cv2.imshow("blankCanvas",blankCanvas)
 
-
-
-
-cv2.waitKey()
+cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+
+
+# # from PIL import Image
+# # from PIL import ImageFilter
+# cv2.waitKey()
+# cv2.destroyAllWindows()
 
 
 # def main():
