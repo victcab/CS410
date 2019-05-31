@@ -17,9 +17,9 @@ blurImg = cv2.blur(img, (val, val))
 hsv = cv2.cvtColor(blurImg, cv2.COLOR_BGR2HSV)
 
 #######################################5#############
-black = CreateColorRange(0,0,0,180,0,0)
-white = CreateColorRange(0,0,127.5,180,25,255)
-gray = CreateColorRange(0,0,0,180,25,127.5)
+black = CreateColorRange(0,0,0,180,0,30)
+gray = CreateColorRange(0,0,30,180,25,240)
+white = CreateColorRange(0,0,240,180,0,255)
 
 orange1 = CreateColorRange(10, 25, 127.5, 22, 255, 255)
 orange2 = CreateColorRange(10, 25, 0, 22, 255, 127.5)
@@ -44,45 +44,11 @@ darkpink = CreateColorRange(141, 25, 0, 161, 255, 127.5)
 
 lightred = CreateColorRange(161, 25, 127.5, 180, 255, 255)
 darkred = CreateColorRange(161, 25, 0, 180, 255, 127.5)
+#######################################5#############
 
 blankCanvas = np.zeros((height,width,3), np.uint8)
-#blankCanvas[:] = (245, 245, 220)
-#final = black | white | gray | orange1 | orange2| yellow1 | yellow2 | lightgreen | darkgreen | lightcyan | darkcyan | lightblue | darkblue | lightred | darkred | lightpurple | darkpurple | lightpink | darkpink
-final2 = black | white | gray
-final3 = lightcyan | darkcyan | lightblue | darkblue
-final4 = orange1 | orange2| yellow1 | yellow2
-#cv2.imshow('final', final)
-cv2.imshow('final2', final2)
-cv2.imshow('final3', final3)
-cv2.imshow('final4', final4)
 
-#cv2.imshow('og', img)
 cv2.imshow('blurred image', blurImg)
-
-##########################################################################
-#cv2.imshow('', black)
-#cv2.imshow('', white)
-#cv2.imshow('', gray)
-
-#cv2.imshow('', orange1)
-#cv2.imshow('', orange2)
-
-#cv2.imshow('', yellow1)
-#cv2.imshow('', yellow2)
-
-#cv2.imshow('lightgreen', lightgreen)
-#cv2.imshow('darkgreen', darkgreen)
-
-#cv2.imshow('', lightred)
-#cv2.imshow('', darkred)
-
-#cv2.imshow('', lightblue)
-#cv2.imshow('', darkblue)
-
-#cv2.imshow('', lightcyan)
-#cv2.imshow('', darkcyan)
-
-cv2.imshow("blankCanvas.jpg",blankCanvas)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
