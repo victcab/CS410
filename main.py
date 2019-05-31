@@ -3,25 +3,37 @@ import numpy as np
 
 sourceImg = cv2.imread('testing.jpg')
 height, width, channels = sourceImg.shape
-val = int(input("Enter your level of blur:"))
-blurImg = cv2.blur(sourceImg, (val, val))
+#val = int(input("Enter your level of blur:"))
 #blurImg = 5
+blurFactor = 0
+blurImg = sourceImg
+blurSelection = [900, 500, 100]
 hsv = cv2.cvtColor(blurImg, cv2.COLOR_BGR2HSV)
 blankCanvas = np.zeros((height, width, 3), np.uint8)
 blankCanvas[:] = (0, 0, 0)
 
 def main():
 
- #   sourceImg = cv2.imread('darkgreen.jpg')
+    global blurFactor
+    global blurImg
+
     cv2.namedWindow("sourceImage");
     cv2.moveWindow("sourceImage", 40, 30)  # Move it to (40,30)
-    cv2.imshow("sourceImage",sourceImg)
+    cv2.imshow("sourceImage", sourceImg)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    generateThreshold()
-    #paint([30, 12, 8, 4, 2])
+    while (blurFactor < len(blurSelection)):
 
+        blurImg = cv2.blur(sourceImg, (blurSelection[blurFactor], blurSelection[blurFactor]))
+        generateThreshold()
+        blurFactor  += 1
+
+    cv2.namedWindow("blankCanvas");
+    cv2.moveWindow("blankCanvas", 40, 30)  # Move it to (40,30)
+    cv2.imshow("blankCanvas", blankCanvas)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
 def paint(maskImage):
@@ -29,31 +41,25 @@ def paint(maskImage):
     m = 0
     i = 0
 
-
-
-    cv2.namedWindow("maskImage");
-    cv2.moveWindow("maskImage", 40, 30)  # Move it to (40,30)
-    cv2.imshow("maskImage",maskImage)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
-    # cv2.namedWindow("blankCanvas");
-    # cv2.moveWindow("blankCanvas", 40, 30)  # Move it to (40,30)
-    # cv2.imshow("blankCanvas", blankCanvas)
+    # cv2.namedWindow("maskImage");
+    # cv2.moveWindow("maskImage", 40, 30)  # Move it to (40,30)
+    # cv2.imshow("maskImage",maskImage)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
-    for i in range(0, height, 7):  # for every col:
-        for j in range(0, width, 7):  # For every row
+
+
+    for i in range(0, height, blurSelection[blurFactor]/4):  # for every col:
+        for j in range(0, width, blurSelection[blurFactor]/4):  # For every row
             if np.any(maskImage[i, j] != [0, 0, 0]):
-                cv2.circle(maskImage, (j, i), 3, (0, 0, 255), -1)
+                color = maskImage[i, j]
+                intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
+                cv2.circle(maskImage, (j, i), blurSelection[blurFactor]/8, intColor, -1)
+                cv2.circle(blankCanvas, (j, i), blurSelection[blurFactor] / 8, intColor , -1)
 
 
-    cv2.namedWindow("maskImage");
-    cv2.moveWindow("maskImage", 40, 30)  # Move it to (40,30)
-    cv2.imshow("maskImage",maskImage)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #HERE
+
 
     # cv2.namedWindow("sourceImage");
     # cv2.moveWindow("sourceImage", 40, 30)  # Move it to (40,30)
@@ -125,8 +131,20 @@ def generateThreshold():
         if cv2.countNonZero(gray) == 0:
             print "Image is black"
         else:
+          #  if countNonZero(gray) > #number of pixels :
+            print i
             paint(masks[i])
         i += 1
+
+        # while i < len(masks):
+        #     gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
+        #     if cv2.countNonZero(gray) == 0:
+        #         print "Image is black"
+        #     else:
+        #         if cv2.countNonZero(gray) > masks[i].size / 4:
+        #             print i
+        #             paint(masks[i])
+        #     i += 1
 
 
     #blankCanvas = np.zeros((height,width,3), np.uint8)
