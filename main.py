@@ -7,7 +7,7 @@ height, width, channels = sourceImg.shape
 #blurImg = 5
 blurFactor = 0
 blurImg = sourceImg
-blurSelection = [900, 500, 100]
+blurSelection = [1]
 hsv = cv2.cvtColor(blurImg, cv2.COLOR_BGR2HSV)
 blankCanvas = np.zeros((height, width, 3), np.uint8)
 blankCanvas[:] = (0, 0, 0)
@@ -36,7 +36,7 @@ def main():
     cv2.destroyAllWindows()
 
 
-def paint(maskImage):
+def paint(maskImage, spacing, dotSize):
 
     m = 0
     i = 0
@@ -49,13 +49,18 @@ def paint(maskImage):
 
 
 
-    for i in range(0, height, blurSelection[blurFactor]/4):  # for every col:
-        for j in range(0, width, blurSelection[blurFactor]/4):  # For every row
+    for i in range(0, height, spacing):  # for every col:
+        for j in range(0, width, spacing):  # For every row
             if np.any(maskImage[i, j] != [0, 0, 0]):
-                color = maskImage[i, j]
-                intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
-                cv2.circle(maskImage, (j, i), blurSelection[blurFactor]/8, intColor, -1)
-                cv2.circle(blankCanvas, (j, i), blurSelection[blurFactor] / 8, intColor , -1)
+                if (np.any(maskImage[i,j] != blankCanvas[i,j])):
+                    color = maskImage[i, j]
+                    intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
+                    cv2.circle(blankCanvas, (j, i), dotSize, intColor , -1)
+                else:
+                    print "skip"
+
+
+
 
 
     #HERE
@@ -126,6 +131,13 @@ def generateThreshold():
 
     i = 0
 
+    # final = lightgreen | darkgreen | yellow1 | yellow2
+    # final2 = black | white | gray
+    # final3 = lightcyan | darkcyan | lightblue | darkblue
+    # final4 = orange1 | orange2
+    #
+    # masks = [final, final2, final3, final4]
+
     while i < len(masks):
         gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
         if cv2.countNonZero(gray) == 0:
@@ -133,8 +145,76 @@ def generateThreshold():
         else:
           #  if countNonZero(gray) > #number of pixels :
             print i
-            paint(masks[i])
+            paint(masks[i], 15, 14)
         i += 1
+
+    i = 0
+
+    print "first layer"
+    cv2.namedWindow("first layer");
+    cv2.moveWindow("first layer", 40, 30)  # Move it to (40,30)
+    cv2.imshow("first layer", blankCanvas)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    while i < len(masks):
+        gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
+        if cv2.countNonZero(gray) == 0:
+            print "Image is black"
+        else:
+          #  if countNonZero(gray) > #number of pixels :
+            print i
+            paint(masks[i], 10, 9)
+        i += 1
+
+    i =  0
+
+    print "second layer"
+    cv2.namedWindow("second layer");
+    cv2.moveWindow("second layer", 40, 30)  # Move it to (40,30)
+    cv2.imshow("second layer", blankCanvas)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    while i < len(masks):
+        gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
+        if cv2.countNonZero(gray) == 0:
+            print "Image is black"
+        else:
+            #  if countNonZero(gray) > #number of pixels :
+            print i
+            paint(masks[i], 7, 6)
+        i += 1
+
+    print "third layer"
+    cv2.namedWindow("third layer");
+    cv2.moveWindow("third layer", 40, 30)  # Move it to (40,30)
+    cv2.imshow("third layer", blankCanvas)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    i =  0
+
+    while i < len(masks):
+        gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
+        if cv2.countNonZero(gray) == 0:
+            print "Image is black"
+        else:
+            #  if countNonZero(gray) > #number of pixels :
+            print i
+            paint(masks[i], 6, 5)
+        i += 1
+
+    print "fourth layer"
+    cv2.namedWindow("fourth layer");
+    cv2.moveWindow("fourth layer", 40, 30)  # Move it to (40,30)
+    cv2.imshow("fourth layer", blankCanvas)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+
+
 
         # while i < len(masks):
         #     gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
@@ -149,10 +229,7 @@ def generateThreshold():
 
     #blankCanvas = np.zeros((height,width,3), np.uint8)
     #blankCanvas[:] = (245, 245, 220)
-    #final = black | white | gray | orange1 | orange2| yellow1 | yellow2 | lightgreen | darkgreen | lightcyan | darkcyan | lightblue | darkblue | lightred | darkred | lightpurple | darkpurple | lightpink | darkpink
-    # final2 = black | white | gray
-    # final3 = lightcyan | darkcyan | lightblue | darkblue
-    # final4 = orange1 | orange2| yellow1 | yellow2
+
     # #cv2.imshow('final', final)
     # cv2.imshow('final2', final2)
     # cv2.imshow('final3', final3)
