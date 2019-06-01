@@ -4,18 +4,14 @@ import random
 
 sourceImg = cv2.imread('testing.jpg')
 height, width, channels = sourceImg.shape
-#val = int(input("Enter your level of blur:"))
-#blurImg = 5
-blurFactor = 0
 blurImg = sourceImg
-blurSelection = [4]
+blurSelection = 1
 hsv = cv2.cvtColor(blurImg, cv2.COLOR_BGR2HSV)
 blankCanvas = np.zeros((height, width, 3), np.uint8)
 blankCanvas[:] = (0, 0, 0)
 
 def main():
 
-    global blurFactor
     global blurImg
 
     cv2.namedWindow("sourceImage");
@@ -24,13 +20,8 @@ def main():
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-
-
-    while (blurFactor < len(blurSelection)):
-
-        blurImg = cv2.blur(sourceImg, (blurSelection[blurFactor], blurSelection[blurFactor]))
-        generateThreshold()
-        blurFactor  += 1
+    blurImg = cv2.blur(sourceImg, (blurSelection, blurSelection))
+    generateThreshold()
 
     cv2.namedWindow("blankCanvas");
     cv2.moveWindow("blankCanvas", 40, 30)  # Move it to (40,30)
@@ -40,15 +31,6 @@ def main():
 
 
 def paint(maskImage, spacing, dotSize):
-
-    m = 0
-    i = 0
-
-    # cv2.namedWindow("maskImage");
-    # cv2.moveWindow("maskImage", 40, 30)  # Move it to (40,30)
-    # cv2.imshow("maskImage",maskImage)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
 
     myList = []
 
@@ -77,34 +59,6 @@ def paint(maskImage, spacing, dotSize):
             intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
             cv2.circle(blankCanvas, (c, b), dotSize, intColor , -1)
             a += 1
-
-
-
-
-    #HERE
-
-
-    # cv2.namedWindow("sourceImage");
-    # cv2.moveWindow("sourceImage", 40, 30)  # Move it to (40,30)
-    # cv2.imshow("sourceImage",sourceImg)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    # cv2.imshow("blankCanvas",blankCanvas)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
-
-    i = 0
-
-    # while i < len(radii):
-    #     print(radii[i])
-    #     blurImg = cv2.blur(sourceImg, (radii[i], radii[i]))
-    #     cv2.namedWindow("blurred image");
-    #     cv2.moveWindow("blurred image", 40, 30)  # Move it to (40,30)
-    #     cv2.imshow('blurred image', blurImg)
-    #     cv2.waitKey(0)
-    #     cv2.destroyAllWindows()
-    #     i += 1
 
 
 
@@ -149,12 +103,7 @@ def generateThreshold():
 
     i = 0
 
-    # final = lightgreen | darkgreen | yellow1 | yellow2
-    # final2 = black | white | gray
-    # final3 = lightcyan | darkcyan | lightblue | darkblue
-    # final4 = orange1 | orange2
-    #
-    # masks = [final, final2, final3, final4]
+
     cv2.namedWindow("blur");
     cv2.moveWindow("blur", 40, 30)  # Move it to (40,30)
     cv2.imshow("blur", blurImg)
@@ -166,7 +115,24 @@ def generateThreshold():
         if cv2.countNonZero(gray) == 0:
             print "Image is black"
         else:
-          #  if countNonZero(gray) > #number of pixels :
+            print i
+            paint(masks[i], 20, 19)
+        i += 1
+
+    i = 0
+
+    print "zero layer"
+    cv2.namedWindow("zero layer");
+    cv2.moveWindow("zero layer", 40, 30)  # Move it to (40,30)
+    cv2.imshow("zero layer", blankCanvas)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    while i < len(masks):
+        gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
+        if cv2.countNonZero(gray) == 0:
+            print "Image is black"
+        else:
             print i
             paint(masks[i], 15, 14)
         i += 1
@@ -185,7 +151,6 @@ def generateThreshold():
         if cv2.countNonZero(gray) == 0:
             print "Image is black"
         else:
-          #  if countNonZero(gray) > #number of pixels :
             print i
             paint(masks[i], 10, 9)
         i += 1
@@ -204,7 +169,6 @@ def generateThreshold():
         if cv2.countNonZero(gray) == 0:
             print "Image is black"
         else:
-            #  if countNonZero(gray) > #number of pixels :
             print i
             paint(masks[i], 7, 6)
         i += 1
@@ -223,7 +187,6 @@ def generateThreshold():
         if cv2.countNonZero(gray) == 0:
             print "Image is black"
         else:
-            #  if countNonZero(gray) > #number of pixels :
             print i
             paint(masks[i], 6, 5)
         i += 1
@@ -236,96 +199,6 @@ def generateThreshold():
     cv2.destroyAllWindows()
 
 
-
-
-
-        # while i < len(masks):
-        #     gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
-        #     if cv2.countNonZero(gray) == 0:
-        #         print "Image is black"
-        #     else:
-        #         if cv2.countNonZero(gray) > masks[i].size / 4:
-        #             print i
-        #             paint(masks[i])
-        #     i += 1
-
-
-    #blankCanvas = np.zeros((height,width,3), np.uint8)
-    #blankCanvas[:] = (245, 245, 220)
-
-    # #cv2.imshow('final', final)
-    # cv2.imshow('final2', final2)
-    # cv2.imshow('final3', final3)
-    # cv2.imshow('final4', final4)
-
-    #cv2.imshow('og', img)
-    # cv2.imshow('blurred image', blurImg)
-    #
-    # ##########################################################################
-    # cv2.imshow('', black)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', white)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', gray)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', orange1)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', orange2)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', yellow1)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', yellow2)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('lightgreen', lightgreen)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('darkgreen', darkgreen)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', lightred)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', darkred)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', lightblue)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', darkblue)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', lightcyan)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # cv2.imshow('', darkcyan)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #
-    # # cv2.imshow("blankCanvas.jpg",blankCanvas)
-    #
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()
