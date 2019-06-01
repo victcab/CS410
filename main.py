@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import random
 
 sourceImg = cv2.imread('testing.jpg')
 height, width, channels = sourceImg.shape
@@ -7,7 +8,7 @@ height, width, channels = sourceImg.shape
 #blurImg = 5
 blurFactor = 0
 blurImg = sourceImg
-blurSelection = [1]
+blurSelection = [4]
 hsv = cv2.cvtColor(blurImg, cv2.COLOR_BGR2HSV)
 blankCanvas = np.zeros((height, width, 3), np.uint8)
 blankCanvas[:] = (0, 0, 0)
@@ -22,6 +23,8 @@ def main():
     cv2.imshow("sourceImage", sourceImg)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
 
     while (blurFactor < len(blurSelection)):
 
@@ -47,18 +50,33 @@ def paint(maskImage, spacing, dotSize):
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
+    myList = []
 
 
     for i in range(0, height, spacing):  # for every col:
         for j in range(0, width, spacing):  # For every row
             if np.any(maskImage[i, j] != [0, 0, 0]):
                 if (np.any(maskImage[i,j] != blankCanvas[i,j])):
-                    color = maskImage[i, j]
-                    intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
-                    cv2.circle(blankCanvas, (j, i), dotSize, intColor , -1)
+                    myList.append([i,j])
+                    # color = maskImage[i, j]
+                    # intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
+                    # cv2.circle(blankCanvas, (j, i), dotSize, intColor , -1)
                 else:
                     print "skip"
 
+
+    random.shuffle(myList)
+    a = 0
+
+    if len(myList) != 0:
+        while a < len(myList):
+            print myList[a]
+            b = myList[a][0]
+            c = myList[a][1]
+            color = maskImage[b, c]
+            intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
+            cv2.circle(blankCanvas, (c, b), dotSize, intColor , -1)
+            a += 1
 
 
 
@@ -137,6 +155,11 @@ def generateThreshold():
     # final4 = orange1 | orange2
     #
     # masks = [final, final2, final3, final4]
+    cv2.namedWindow("blur");
+    cv2.moveWindow("blur", 40, 30)  # Move it to (40,30)
+    cv2.imshow("blur", blurImg)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
     while i < len(masks):
         gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
