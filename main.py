@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import random
 
-sourceImg = cv2.imread('CAB_5157.jpg')
+sourceImg = cv2.imread('VCA_1706.jpg')
 height, width, channels = sourceImg.shape
 blurImg = sourceImg
 blurSelection = 1
@@ -74,35 +74,9 @@ def CreateColorRange(hlower, slower, vlower, hupper, supper, vupper):
 
 def generateThreshold():
 
-    black = CreateColorRange(0,0,0,180,0,0)
-    white = CreateColorRange(0,0,127.5,180,25,255)
-    gray = CreateColorRange(0,0,0,180,25,127.5)
+    mask = CreateColorRange(0,0,0,180,255,255)
 
-    orange1 = CreateColorRange(10, 25, 127.5, 22, 255, 255)
-    orange2 = CreateColorRange(10, 25, 0, 22, 255, 127.5)
-
-    yellow1 = CreateColorRange(22, 25, 127.5, 32, 255, 255)
-    yellow2 = CreateColorRange(22, 25, 0, 32, 255, 127.5)
-
-    lightgreen = CreateColorRange(32, 25, 127.5, 82, 255, 255)
-    darkgreen = CreateColorRange(32, 25, 0, 82, 255, 127.5)
-
-    lightcyan = CreateColorRange(82, 25, 127.5, 115, 255, 255)
-    darkcyan = CreateColorRange(82, 25, 0, 115, 255, 127.5)
-
-    lightblue = CreateColorRange(115, 25, 127.5, 125, 255, 255)
-    darkblue = CreateColorRange(115, 25, 0, 125, 255, 127.5)
-
-    lightpurple = CreateColorRange(125, 25, 127.5, 141, 255, 255)
-    darkpurple = CreateColorRange(125, 25, 0, 141, 255, 127.5)
-
-    lightpink = CreateColorRange(141, 25, 127.5, 161, 255, 255)
-    darkpink = CreateColorRange(141, 25, 0, 161, 255, 127.5)
-
-    lightred = CreateColorRange(161, 25, 127.5, 180, 255, 255)
-    darkred = CreateColorRange(161, 25, 0, 180, 255, 127.5)
-
-    masks = [black, white, gray, orange1, orange2, yellow1, yellow2, lightgreen, darkgreen, lightcyan, darkcyan, lightblue, darkblue, lightpurple, darkpurple, lightpink, darkpink, lightred, darkred]
+    masks = [mask]
 
     i = 0
 
