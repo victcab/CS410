@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import random
 
-sourceImg = cv2.imread('testing.jpg')
+sourceImg = cv2.imread('CAB_5157.jpg')
 height, width, channels = sourceImg.shape
 blurImg = sourceImg
 blurSelection = 1
@@ -44,7 +44,7 @@ def paint(maskImage, spacing, dotSize):
                     # intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
                     # cv2.circle(blankCanvas, (j, i), dotSize, intColor , -1)
                 else:
-                    print "skip"
+                    print("skip")
 
 
     random.shuffle(myList)
@@ -52,12 +52,15 @@ def paint(maskImage, spacing, dotSize):
 
     if len(myList) != 0:
         while a < len(myList):
-            print myList[a]
+            print(myList[a])
             b = myList[a][0]
             c = myList[a][1]
             color = maskImage[b, c]
-            intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
-            cv2.circle(blankCanvas, (c, b), dotSize, intColor , -1)
+            #intColor = np.array((int(color[0]), int(color[1]), int(color[2])))
+            #print("INTCOLOR: ")
+            #print(intColor)
+            #intColor = intColor.astype(np.int32, copy=False)
+            cv2.circle(blankCanvas, (c, b), dotSize, (int(color[0]),int(color[1]),int(color[2])), -1)
             a += 1
 
 
@@ -113,15 +116,15 @@ def generateThreshold():
     while i < len(masks):
         gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
         if cv2.countNonZero(gray) == 0:
-            print "Image is black"
+            print("Image is black")
         else:
-            print i
+            print(i)
             paint(masks[i], 20, 19)
         i += 1
 
     i = 0
 
-    print "zero layer"
+    print("zero layer")
     cv2.namedWindow("zero layer");
     cv2.moveWindow("zero layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("zero layer", blankCanvas)
@@ -131,15 +134,15 @@ def generateThreshold():
     while i < len(masks):
         gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
         if cv2.countNonZero(gray) == 0:
-            print "Image is black"
+            print("Image is black")
         else:
-            print i
+            print(i)
             paint(masks[i], 15, 14)
         i += 1
 
     i = 0
 
-    print "first layer"
+    print("first layer")
     cv2.namedWindow("first layer");
     cv2.moveWindow("first layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("first layer", blankCanvas)
@@ -149,15 +152,15 @@ def generateThreshold():
     while i < len(masks):
         gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
         if cv2.countNonZero(gray) == 0:
-            print "Image is black"
+            print("Image is black")
         else:
-            print i
+            print(i)
             paint(masks[i], 10, 9)
         i += 1
 
     i =  0
 
-    print "second layer"
+    print("second layer")
     cv2.namedWindow("second layer");
     cv2.moveWindow("second layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("second layer", blankCanvas)
@@ -167,13 +170,13 @@ def generateThreshold():
     while i < len(masks):
         gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
         if cv2.countNonZero(gray) == 0:
-            print "Image is black"
+            print("Image is black")
         else:
-            print i
+            print(i)
             paint(masks[i], 7, 6)
         i += 1
 
-    print "third layer"
+    print("third layer")
     cv2.namedWindow("third layer");
     cv2.moveWindow("third layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("third layer", blankCanvas)
@@ -185,13 +188,13 @@ def generateThreshold():
     while i < len(masks):
         gray = cv2.cvtColor(masks[i], cv2.COLOR_BGR2GRAY)
         if cv2.countNonZero(gray) == 0:
-            print "Image is black"
+            print("Image is black")
         else:
-            print i
+            print(i)
             paint(masks[i], 6, 5)
         i += 1
 
-    print "fourth layer"
+    print("fourth layer")
     cv2.namedWindow("fourth layer");
     cv2.moveWindow("fourth layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("fourth layer", blankCanvas)
