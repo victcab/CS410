@@ -2,10 +2,29 @@ import cv2
 import numpy as np
 import random
 
-sourceImg = cv2.imread('VCA_1706.jpg')
+sourceImg = cv2.imread('DSC_0408.jpg')
 height, width, channels = sourceImg.shape
 blurImg = sourceImg
-blurSelection = 1
+
+print("1: No smoothing")
+print("2: Medium smoothing")
+print("3: High smoothing")
+level = int(input("Please enter your level of smoothness: "))
+
+if(level == 1):
+    blurSelection = 1
+
+elif(level == 2):
+    blurSelection = 5
+
+elif(level == 3):
+    blurSelection = 10
+
+else:
+    blurSelection = 1
+
+print(blurSelection)
+
 hsv = cv2.cvtColor(blurImg, cv2.COLOR_BGR2HSV)
 blankCanvas = np.zeros((height, width, 3), np.uint8)
 blankCanvas[:] = (0, 0, 0)
@@ -17,6 +36,7 @@ def main():
     cv2.namedWindow("sourceImage");
     cv2.moveWindow("sourceImage", 40, 30)  # Move it to (40,30)
     cv2.imshow("sourceImage", sourceImg)
+    print("Press any key to continue...")
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
@@ -26,6 +46,7 @@ def main():
     cv2.namedWindow("blankCanvas");
     cv2.moveWindow("blankCanvas", 40, 30)  # Move it to (40,30)
     cv2.imshow("blankCanvas", blankCanvas)
+    print("Press any key to continue...")
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
@@ -84,6 +105,7 @@ def generateThreshold():
     cv2.namedWindow("blur");
     cv2.moveWindow("blur", 40, 30)  # Move it to (40,30)
     cv2.imshow("blur", blurImg)
+    print("Press any key to continue...")
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
@@ -102,7 +124,7 @@ def generateThreshold():
     cv2.namedWindow("zero layer");
     cv2.moveWindow("zero layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("zero layer", blankCanvas)
-    cv2.waitKey(0)
+    cv2.waitKey(500)
     cv2.destroyAllWindows()
 
     while i < len(masks):
@@ -120,7 +142,7 @@ def generateThreshold():
     cv2.namedWindow("first layer");
     cv2.moveWindow("first layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("first layer", blankCanvas)
-    cv2.waitKey(0)
+    cv2.waitKey(500)
     cv2.destroyAllWindows()
 
     while i < len(masks):
@@ -138,7 +160,7 @@ def generateThreshold():
     cv2.namedWindow("second layer");
     cv2.moveWindow("second layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("second layer", blankCanvas)
-    cv2.waitKey(0)
+    cv2.waitKey(500)
     cv2.destroyAllWindows()
 
     while i < len(masks):
@@ -154,7 +176,7 @@ def generateThreshold():
     cv2.namedWindow("third layer");
     cv2.moveWindow("third layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("third layer", blankCanvas)
-    cv2.waitKey(0)
+    cv2.waitKey(500)
     cv2.destroyAllWindows()
 
     i =  0
@@ -172,7 +194,7 @@ def generateThreshold():
     cv2.namedWindow("fourth layer");
     cv2.moveWindow("fourth layer", 40, 30)  # Move it to (40,30)
     cv2.imshow("fourth layer", blankCanvas)
-    cv2.waitKey(0)
+    cv2.waitKey(500)
     cv2.destroyAllWindows()
 
 
