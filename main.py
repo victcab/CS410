@@ -1,11 +1,14 @@
+#Library imports
 import cv2
 import numpy as np
 import random
 
-sourceImg = cv2.imread('DSC_0408.jpg')
+#Reading in image
+sourceImg = cv2.imread('testing.jpg')
 height, width, channels = sourceImg.shape
 blurImg = sourceImg
 
+#User options for blurring
 print("1: No smoothing")
 print("2: Medium smoothing")
 print("3: High smoothing")
@@ -53,8 +56,8 @@ def main():
 
 def paint(maskImage, spacing, dotSize):
 
+    #List created for pixel locations and color
     myList = []
-
 
     for i in range(0, height, spacing):  # for every col:
         for j in range(0, width, spacing):  # For every row
@@ -100,7 +103,6 @@ def generateThreshold():
     masks = [mask]
 
     i = 0
-
 
     cv2.namedWindow("blur");
     cv2.moveWindow("blur", 40, 30)  # Move it to (40,30)
