@@ -22,5 +22,7 @@ sourceImg = cv2.imread('yourImage.imgExt')
 ```
 If this is not done, the program will automatically run with the testing.jpg image provided in the directory.
 
+Once program is running, a new window will pop up containing the image. Press the space bar a few times to see the paint filter being applied layer by layer.
+
 ## License
 This program is licensed under the "MIT License". Please see the file LICENSE in the source distribution of this software for license terms.
