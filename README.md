@@ -15,7 +15,7 @@ More details of the project can be found in our presentation slides [here](https
 Before running, make sure you properly add the image you want to "paint-ify" to the project directory. Update line 5 of main.py to referance that image.
 
 ```
-sourceImg = cv2.imread('[yourImage.imgExt')
+sourceImg = cv2.imread('yourImage.imgExt')
 ```
 If this is not done, the program will automatically run with the testing.jpg image provided in the directory.
 
