@@ -12,7 +12,7 @@ The algorithem used to create this paint filter was originally designed and buil
 More details of the project can be found in our presentation slides [here](https://docs.google.com/presentation/d/e/2PACX-1vRfP7LQ6wCQURrrOj1DBEXZB11P9NosAy_BzbMuIBd9FL1vWTB3wTARsHWJvEKuLFB8CdTkKrlm6iIx/pub?start=false&loop=false&delayms=3000&slide=id.g5af439a97a_3_18).
 
 ## Demo
-![Photo Paint Filter Demo](2020-04-24 13.09.29.gif)
+![Photo Paint Filter Demo](demo.gif)
 
 ## Running the Code
 Before running, make sure you properly add the image you want to "paint-ify" to the project directory. Update line 5 of main.py to referance that image.
