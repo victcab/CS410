@@ -11,7 +11,6 @@ The algorithem used to create this paint filter was originally designed and buil
 
 More details of the project can be found in our presentation slides [here](https://docs.google.com/presentation/d/e/2PACX-1vRfP7LQ6wCQURrrOj1DBEXZB11P9NosAy_BzbMuIBd9FL1vWTB3wTARsHWJvEKuLFB8CdTkKrlm6iIx/pub?start=false&loop=false&delayms=3000&slide=id.g5af439a97a_3_18).
 
-## Demo
 ![Photo Paint Filter Demo](demo.gif)
 
 ## Running the Code
